@@ -48,6 +48,10 @@ export class AssignorService {
       data: updateAssignorDto,
       where: { id },
     });
+
+    if (!updateAssignor)
+      throw new NotFoundException(`Assignor with ID ${id} not found`);
+
     return updateAssignor;
   }
 
