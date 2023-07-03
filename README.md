@@ -77,6 +77,9 @@ Nest is [MIT licensed](LICENSE).
 npm install
 npm run migration:run
 npm run migration:generate -- --name "new name"
+docker-compose --env-file .env up -d
+docker-compose down --volumes
+sudo rm -rf .docker
 
 ## TO-DO
 
