@@ -18,11 +18,11 @@ model Payable {
 }
 
 model Assignor {
-  id        String  @id @default(uuid())
-  document  String
-  email     String
+  id        String   @id @default(uuid())
+  document  String   @unique
+  email     String   @unique
   phone     String
   name      String
-  payable   Payable @relation(fields: [payableId], references: [id])
-  payableId String
+  payable   Payable? @relation(fields: [payableId], references: [id])
+  payableId String?
 }

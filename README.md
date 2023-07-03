@@ -71,3 +71,13 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## dmchk-b project
+
+npm install
+npm run migration:run
+npm run migration:generate -- --name "new name"
+
+## TO-DO
+
+- Adicionar um init para criar o banco automaticamente no mysql
