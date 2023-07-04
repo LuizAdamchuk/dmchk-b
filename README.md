@@ -80,6 +80,7 @@ npm run migration:generate -- --name "new name"
 docker-compose --env-file .env up -d
 docker-compose down --volumes
 sudo rm -rf .docker
+npm run start:dev
 
 ## TO-DO
 

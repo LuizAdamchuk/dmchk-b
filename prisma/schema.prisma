@@ -11,18 +11,22 @@ datasource db {
 }
 
 model Payable {
-  id           String     @id @default(uuid())
-  value        Float      @unique
+  id           String    @id @default(uuid())
+  value        Float
   emissionDate DateTime
-  assignor     Assignor[]
+  assignor     Assignor? @relation("AssignorPayables", fields: [assignorId], references: [id])
+  assignorId   String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
 }
 
 model Assignor {
-  id        String   @id @default(uuid())
-  document  String   @unique
-  email     String   @unique
+  id        String    @id @default(uuid())
+  document  String    @unique
+  email     String    @unique
   phone     String
   name      String
-  payable   Payable? @relation(fields: [payableId], references: [id])
-  payableId String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  payables  Payable[] @relation("AssignorPayables")
 }
