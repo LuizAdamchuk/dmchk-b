@@ -82,6 +82,6 @@ docker-compose down --volumes
 sudo rm -rf .docker
 npm run start:dev
 
-## TO-DO
+## PROBLEMS
 
-- Adicionar um init para criar o banco automaticamente no mysql
+In mac for access the administration panel of keycloak u MUST use 0.0.0.0:8080, if u use localhost appears page not found. -.-"
