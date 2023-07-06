@@ -5,19 +5,27 @@ import {
 } from '@nestjs/common';
 import { CreatePayableDto } from './dto/create-payable.dto';
 import { UpdatePayableDto } from './dto/update-payable.dto';
-import { PrismaService } from 'src/databases/PrismaService';
+import { PrismaService } from '../../databases/PrismaService';
+import { AssignorService } from '../assignor/assignor.service';
 
 @Injectable()
 export class PayableService {
-  constructor(private ORM: PrismaService) {}
+  constructor(
+    private ORM: PrismaService,
+    private readonly _assignorSerive: AssignorService
+  ) {}
 
   async create(createPayableDto: CreatePayableDto) {
-    const { emissionDate, ...rest } = createPayableDto;
+    const { emissionDate, assignorId, ...rest } = createPayableDto;
+
     const formattedEmissionDate = new Date(emissionDate);
+
+    await this._assignorSerive.findOne(assignorId);
 
     const payable = await this.ORM.payable.create({
       data: {
         ...rest,
+        assignorId: assignorId,
         emissionDate: formattedEmissionDate,
       },
     });
@@ -49,10 +57,14 @@ export class PayableService {
   }
 
   async update(id: string, updatePayableDto: UpdatePayableDto) {
+    // Only allow change value for now
+    const { value } = updatePayableDto;
     await this.findOne(id);
 
     const updatePayable = await this.ORM.payable.update({
-      data: updatePayableDto,
+      data: {
+        value: value,
+      },
       where: { id },
     });
 
